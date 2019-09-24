@@ -1,0 +1,87 @@
+import alumnos.*
+import materias.*
+import carreras.*
+
+describe "Inscripción materias" {
+	
+	//Carreras 
+	var programacion
+	var filosofia
+	var historia
+	var edFisica
+	
+	//Materias Programacion y/o Correlativas
+	var elemDeProgramacion
+	var objetosI
+	var objetosII
+	var objetosIII
+	var sistOperativos
+	var trabajoFinal
+	
+	//Alumnos
+	
+	var juan
+	
+	//Creditos
+	
+	var creditosTrabajoFinal = new Credito()
+	
+	//Año (requisito)
+	
+	//Boletín
+	
+	
+	
+	fixture {
+		juan = new Alumno()
+		programacion = new Carrera()
+		elemDeProgramacion = new Materia()
+		elemDeProgramacion.otorgaCreditos(50)
+		objetosI = new Materia()
+		objetosI.otorgaCreditos(50)
+		objetosII = new Materia()
+		objetosII.otorgaCreditos(50)
+		objetosIII = new Materia()
+		objetosIII.otorgaCreditos(50)
+		sistOperativos = new Materia()
+		sistOperativos.otorgaCreditos(50)
+		trabajoFinal = new Materia()
+		creditosTrabajoFinal.creditosNecesarios(250)
+		
+		programacion.materiasDeCarrera().add(elemDeProgramacion)
+		programacion.materiasDeCarrera().add(trabajoFinal)
+		elemDeProgramacion.anio(1)
+		objetosI.anio(1)
+		objetosII.anio(2)
+		objetosIII.anio(2)
+		sistOperativos.anio(3)
+		trabajoFinal.anio(3)
+		
+	}
+	
+	test "Alumno puede inscribirse a materia" {
+		
+		juan.carrerasEnCurso().add(programacion)	
+		juan.creditosObtenidos(250)	
+		assert.that(juan.puedeAnotarAMateria(trabajoFinal))	
+		
+		const materiasInscriptas = #{trabajoFinal}
+		
+		
+		juan.creditosObtenidos(250)
+		juan.anotarAMateria(trabajoFinal)		
+		assert.equals(materiasInscriptas,juan.materiasInscriptas())
+	
+	}
+	
+	test "Estudiante aprobó una materia. No cargar dos veces la misma nota." {}
+	
+	test "Inscribir alumno a materia. Verificar cupo de materia. Utilizar lista de espera." {}
+	
+	
+	
+	
+	
+	
+	
+}
