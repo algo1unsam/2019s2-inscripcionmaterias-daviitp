@@ -28,6 +28,9 @@ describe "Inscripción materias" {
 	
 	//Año (requisito)
 	
+	var anio1 = new Anio()
+	var anio2 = new Anio()
+	
 	//Boletín
 	
 	
@@ -50,12 +53,10 @@ describe "Inscripción materias" {
 		
 		programacion.materiasDeCarrera().add(elemDeProgramacion)
 		programacion.materiasDeCarrera().add(trabajoFinal)
-		elemDeProgramacion.anio(1)
-		objetosI.anio(1)
-		objetosII.anio(2)
-		objetosIII.anio(2)
-		sistOperativos.anio(3)
-		trabajoFinal.anio(3)
+		programacion.materiasDeCarrera().add(objetosI)
+		programacion.materiasDeCarrera().add(objetosII)
+		programacion.materiasDeCarrera().add(objetosIII)
+
 		
 	}
 	
@@ -72,6 +73,28 @@ describe "Inscripción materias" {
 		juan.anotarAMateria(trabajoFinal)		
 		assert.equals(materiasInscriptas,juan.materiasInscriptas())
 	
+	}
+	
+	test "Otorga creditos" {
+		
+		juan.carrerasEnCurso().add(programacion)
+		juan.aprobarMateria(elemDeProgramacion,7)
+		
+		assert.equals(50,juan.creditosObtenidos())
+		
+	}
+	
+	test "Requisito anual" {
+		juan.carrerasEnCurso().add(programacion)
+		juan.aprobarMateria(elemDeProgramacion,7)
+		juan.aprobarMateria(objetosI,7)
+		anio1.materiasAnuales().add(elemDeProgramacion)
+		anio1.materiasAnuales().add(objetosI)
+		objetosII.requisito(anio1)
+
+		assert.that(anio1.cumpleRequisito(juan))			
+		assert.that(juan.puedeAnotarAMateria(objetosII))
+		
 	}
 	
 	test "Estudiante aprobó una materia. No cargar dos veces la misma nota." {}

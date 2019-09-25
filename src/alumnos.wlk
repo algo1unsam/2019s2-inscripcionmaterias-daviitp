@@ -38,6 +38,11 @@ class Alumno {
 	method aprobarMateria(_materia,_nota) {
 		self.materiasAprobadas().add(_materia)
 		self.materiasYNotas().add(new Resultado(materia = _materia, nota = _nota ))
+		self.sumarCreditos(_materia)
+	}
+	
+	method sumarCreditos(materia) {
+		creditosObtenidos = creditosObtenidos + materia.otorgaCreditos()		
 	}
 }
 

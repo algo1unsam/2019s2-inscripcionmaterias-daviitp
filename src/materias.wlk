@@ -7,7 +7,6 @@ class Materia {
 	var property estudiantesAnotados
 	const property listaDeEspera = []
 	var property requisito = nada
-	var property anio 
 	
 	
 	method cumpleRequisito(alumno) {
@@ -36,11 +35,12 @@ class Credito {
 
 class Anio {
 
-	var property anio
+	const property materiasAnuales = #{}
 	
 	method cumpleRequisito(alumno) {
-		return {materia=>materia.anio()}
+		return materiasAnuales.all({materia=>alumno.materiasAprobadas().contains(materia)})
 	}
+
 }
 
 object nada {	
